@@ -8,12 +8,17 @@ public class DummyController {
 
     @GetMapping("/hello")
     public String helloWorld() {
-        return "Hello, world!";
+        return "{\"message\": \"Hello, world!\"}";
     }
 
     @GetMapping("/private/hello")
     public String privateHello() {
-        return "Hello, privileged world!";
+        return "{\"message\": \"Hello, privileged world!\"}";
+    }
+
+    @GetMapping("/private/admin")
+    public String adminHello() {
+        return "{\"message\": \"Hello, admin world!\"}";
     }
 }
 

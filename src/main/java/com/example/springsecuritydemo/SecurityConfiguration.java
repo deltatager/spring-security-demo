@@ -24,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/hello")
                 .permitAll()
+                .antMatchers("/private/admin")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
@@ -38,6 +40,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password(passwordEncoder().encode("password"))
                 .authorities("ROLE_USER");
+
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder().encode("password"))
+                .authorities("ROLE_USER", "ROLE_ADMIN");
+
     }
 
     @Bean
