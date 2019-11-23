@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'public', component: PublicComponent},
   {path: 'private', component: PrivateComponent},
   {path: 'admin', component: AdminComponent},
+  {path: 'admin2', component: AdminComponent},
   {path: '', redirectTo: 'public', pathMatch: 'full'}
 ];
 

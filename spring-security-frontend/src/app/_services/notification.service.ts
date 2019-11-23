@@ -18,6 +18,7 @@ export class NotificationService {
   }
 
   pushNotification(content: string) {
+    clearInterval(this.timeout);
     this.sub.next(content);
     this.timeout = setTimeout(() => this.sub.next(''), 3000);
   }
