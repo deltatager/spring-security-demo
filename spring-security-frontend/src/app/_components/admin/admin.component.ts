@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthenticationService} from '../../_services/authentication.service';
 import {catchError} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {NotificationService} from '../../_services/notification.service';
+import {IdentityService} from "../../_services/identity.service";
 
 @Component({
   selector: 'app-admin',
@@ -16,13 +16,14 @@ export class AdminComponent implements OnInit {
   user: string;
   notif: string;
 
-  constructor(private http: HttpClient, private authSvc: AuthenticationService, private notifSvc: NotificationService) { }
+  constructor(private http: HttpClient, private idSvc: IdentityService, private notifSvc: NotificationService) { }
 
   ngOnInit() {
     this.http.get('http://localhost:8080/private/admin')
       .pipe(catchError(() => EMPTY))
       .subscribe((data: any) => this.message = data.message);
-    this.user = this.authSvc.currentUserValue;
+
+    this.idSvc.getUsername().subscribe((name: string) => this.user = name);
   }
 
   sendNotif() {

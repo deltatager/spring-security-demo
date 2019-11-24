@@ -9,22 +9,13 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
 
   private currentTokenSubject: BehaviorSubject<string>;
-  public currentToken: Observable<string>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentTokenSubject = new BehaviorSubject<string>(sessionStorage.getItem('currentToken'));
-    this.currentToken = this.currentTokenSubject.asObservable();
   }
 
   public get currentTokenValue(): string {
     return this.currentTokenSubject.value;
-  }
-
-  public get currentUserValue(): string {
-    if (this.currentTokenValue) {
-      return JSON.parse(atob(this.currentTokenValue.split('.')[1])).sub;
-    }
-    return null;
   }
 
   login(username: string, password: string) {
